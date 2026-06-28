@@ -16,6 +16,15 @@ public class Main {
         }
     }
 
+    static void printClients(Person[] persons) {
+        for(int i = 0; i<persons.length; i ++) {
+            if(persons[i] instanceof Client) {
+                Client client = (Client) persons[i];
+                System.out.println(client.getContactInfo());
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Client client1 = new Client();
         client1.setName("Алия Иванова");
@@ -36,9 +45,6 @@ public class Main {
 
         Person[] persons = {client1, client2, employee1};
 
-        System.out.println(client1 + "\n" + client2 + "\n" + employee1);
-
-        notifyAll(contacts, "Всем привет!");
-        printAll(persons);
+        printClients(persons);
     }
 }
