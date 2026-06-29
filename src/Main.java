@@ -3,23 +3,25 @@ import model.Client;
 import model.Employee;
 import model.Person;
 
+import java.util.ArrayList;
+
 public class Main {
-    static void notifyAll(Contactable[] contacts, String message) {
-        for (int i = 0; i<contacts.length; i++) {
-            contacts[i].sendMessage(message);
+    static void notifyAll(ArrayList<Contactable> contacts, String message) {
+        for (int i = 0; i<contacts.size(); i++) {
+            contacts.get(i).sendMessage(message);
         }
     }
 
-    static void printAll(Person[] persons) {
-        for (int i = 0; i<persons.length; i++) {
-            System.out.println(persons[i]);
+    static void printAll(ArrayList<Person> persons) {
+        for (int i = 0; i<persons.size(); i++) {
+            System.out.println(persons.get(i));
         }
     }
 
-    static void printClients(Person[] persons) {
-        for(int i = 0; i<persons.length; i ++) {
-            if(persons[i] instanceof Client) {
-                Client client = (Client) persons[i];
+    static void printClients(ArrayList<Person> persons) {
+        for(int i = 0; i<persons.size(); i ++) {
+            if(persons.get(i) instanceof Client) {
+                Client client = (Client) persons.get(i);
                 System.out.println(client.getContactInfo());
             }
         }
@@ -41,9 +43,15 @@ public class Main {
         employee1.setPhone("+77005555555");
         employee1.setPosition("Онлайн мастер");
 
-        Contactable[] contacts = {client1, client2, employee1};
+        ArrayList<Contactable> contacts = new ArrayList<>();
+        contacts.add(client1);
+        contacts.add(client2);
+        contacts.add(employee1);
 
-        Person[] persons = {client1, client2, employee1};
+        ArrayList<Person> persons = new ArrayList<>();
+        persons.add(client1);
+        persons.add(client2);
+        persons.add(employee1);
 
         printClients(persons);
     }
