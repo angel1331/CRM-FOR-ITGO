@@ -28,6 +28,20 @@ public class Main {
     }
 
     public static void main(String[] args) {
+        Contactable tempClient = new Contactable() {
+            @Override
+            public String getContactInfo() {
+                return "Временный клиент";
+            }
+
+            @Override
+            public void sendMessage(String message) {
+                System.out.println("Сообщение временному клиенту: " + message);
+            }
+        };
+
+        tempClient.sendMessage("Далбоеб иди нахуй отсюда");
+
         Client client1 = new Client();
         client1.setName("Алия Иванова");
         client1.setPhone("+77001234567");
@@ -47,6 +61,7 @@ public class Main {
         contacts.add(client1);
         contacts.add(client2);
         contacts.add(employee1);
+        contacts.add(tempClient);
 
         ArrayList<Person> persons = new ArrayList<>();
         persons.add(client1);
@@ -54,5 +69,6 @@ public class Main {
         persons.add(employee1);
 
         printClients(persons);
+        notifyAll(contacts, "Всем идите нахуй");
     }
 }
