@@ -3,6 +3,10 @@ import model.Client;
 import model.Employee;
 import model.Person;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import java.util.ArrayList;
 
 public class Main {
@@ -27,7 +31,24 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+    static ArrayList<Client> loadClientsFromFile(String fileName) throws FileNotFoundException {
+        Scanner scanner = new Scanner(new File(fileName));
+        ArrayList<Client> clients = new ArrayList<>();
+        while (scanner.hasNextLine()) {
+            String line = scanner.nextLine();
+            String[] parts = line.split(" ");
+            Client client = new Client();
+            client.setName(parts[0] + " " + parts[1]);
+            client.setPhone(parts[2]);
+            client.setAddress(parts[3]);
+            clients.add(client);
+        }
+        scanner.close();
+        System.out.println(clients);
+        return clients;
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
         Contactable tempClient = new Contactable() {
             @Override
             public String getContactInfo() {
@@ -39,8 +60,6 @@ public class Main {
                 System.out.println("Сообщение временному клиенту: " + message);
             }
         };
-
-        tempClient.sendMessage("Далбоеб иди нахуй отсюда");
 
         Client client1 = new Client();
         client1.setName("Алия Иванова");
@@ -68,7 +87,6 @@ public class Main {
         persons.add(client2);
         persons.add(employee1);
 
-        printClients(persons);
-        notifyAll(contacts, "Всем идите нахуй");
+        loadClientsFromFile("clients.txt");
     }
 }
