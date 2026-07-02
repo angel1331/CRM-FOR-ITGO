@@ -1,5 +1,7 @@
 package model;
 
+import exceptions.InvalidPhoneException;
+
 public class Person {
     private String name;
     private String phone;
@@ -26,13 +28,14 @@ public class Person {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(String phone) throws InvalidPhoneException {
         if(phone.isEmpty()) {
             System.out.println("Вы не передали никакого значения...");
             return;
+        } else if (!phone.startsWith("+7") || phone.length() < 12) {
+            throw new InvalidPhoneException("ВЫ НАХУЯ С ДРУГОЙ СТРАНЫ ПИШИТЕ НАМ");
         } else {
             this.phone = phone;
         }
     }
-
 }

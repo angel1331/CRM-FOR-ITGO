@@ -1,3 +1,4 @@
+import exceptions.InvalidPhoneException;
 import interfaces.Contactable;
 import model.Client;
 import model.Employee;
@@ -31,24 +32,28 @@ public class Main {
         }
     }
 
-    static ArrayList<Client> loadClientsFromFile(String fileName) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File(fileName));
+    static ArrayList<Client> loadClientsFromFile(String fileName) throws InvalidPhoneException {
         ArrayList<Client> clients = new ArrayList<>();
-        while (scanner.hasNextLine()) {
-            String line = scanner.nextLine();
-            String[] parts = line.split(" ");
-            Client client = new Client();
-            client.setName(parts[0] + " " + parts[1]);
-            client.setPhone(parts[2]);
-            client.setAddress(parts[3]);
-            clients.add(client);
+        try {
+            Scanner scanner = new Scanner(new File(fileName));
+            while (scanner.hasNextLine()) {
+                String line = scanner.nextLine();
+                String[] parts = line.split(" ");
+                Client client = new Client();
+                client.setName(parts[0] + " " + parts[1]);
+                client.setPhone(parts[2]);
+                client.setAddress(parts[3]);
+                clients.add(client);
+            }
+            scanner.close();
+            System.out.println(clients);
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден. Попробуйте перепроверить путь к файлу.");
         }
-        scanner.close();
-        System.out.println(clients);
         return clients;
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException, InvalidPhoneException {
         Contactable tempClient = new Contactable() {
             @Override
             public String getContactInfo() {
