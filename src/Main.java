@@ -1,3 +1,4 @@
+import exceptions.EmptyFileException;
 import exceptions.InvalidPhoneException;
 import interfaces.Contactable;
 import model.Client;
@@ -32,10 +33,13 @@ public class Main {
         }
     }
 
-    static ArrayList<Client> loadClientsFromFile(String fileName) throws InvalidPhoneException {
+    static ArrayList<Client> loadClientsFromFile(String fileName) throws InvalidPhoneException, EmptyFileException {
         ArrayList<Client> clients = new ArrayList<>();
         try {
             Scanner scanner = new Scanner(new File(fileName));
+            if(!scanner.hasNextLine()) {
+                throw new EmptyFileException("В файле нет данных.");
+            }
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
                 String[] parts = line.split(" ");
@@ -47,13 +51,13 @@ public class Main {
             }
             scanner.close();
             System.out.println(clients);
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден. Попробуйте перепроверить путь к файлу.");
+        } catch (FileNotFoundException | EmptyFileException e) {
+            System.out.println("Не удалось загрузить клиентов из файла.");
         }
         return clients;
     }
 
-    public static void main(String[] args) throws FileNotFoundException, InvalidPhoneException {
+    public static void main(String[] args) throws FileNotFoundException, InvalidPhoneException, EmptyFileException {
         Contactable tempClient = new Contactable() {
             @Override
             public String getContactInfo() {
