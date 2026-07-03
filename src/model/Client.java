@@ -4,6 +4,10 @@ import interfaces.Contactable;
 public class Client extends Person implements Contactable {
     private String address;
 
+    public String getRole() {
+        return "Клиент";
+    }
+
     @Override
     public String toString() {
         return "Клиент: " + getName() + " | " + "Телефон: " + getPhone() + " | " + "Адрес: " + getAddress();

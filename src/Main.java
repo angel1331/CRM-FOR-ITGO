@@ -96,6 +96,8 @@ public class Main {
         persons.add(client2);
         persons.add(employee1);
 
-        loadClientsFromFile("clients.txt");
+        System.out.println(client1.getRole());
+        System.out.println(client2.getRole());
+        System.out.println(employee1.getRole());
     }
 }

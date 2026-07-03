@@ -2,9 +2,11 @@ package model;
 
 import exceptions.InvalidPhoneException;
 
-public class Person {
+public abstract class Person {
     private String name;
     private String phone;
+
+    public abstract String getRole();
 
     @Override
     public String toString() {
