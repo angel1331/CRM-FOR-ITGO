@@ -9,6 +9,12 @@ public class Client extends Person implements Contactable {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        Person obj1 = (Person) obj;
+        return this.getName().equals(obj1.getName()) && this.getPhone().equals(obj1.getPhone());
+    }
+
+    @Override
     public String toString() {
         return "Клиент: " + getName() + " | " + "Телефон: " + getPhone() + " | " + "Адрес: " + getAddress();
     }

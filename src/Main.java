@@ -85,6 +85,14 @@ public class Main {
         employee1.setPhone("+77005555555");
         employee1.setPosition("Онлайн мастер");
 
+        Client sameClient1 = new Client();
+        sameClient1.setName("Anna");
+        sameClient1.setPhone("+77059237232");
+
+        Client sameClient2 = new Client();
+        sameClient2.setName("Anna");
+        sameClient2.setPhone("+77059237232");
+
         ArrayList<Contactable> contacts = new ArrayList<>();
         contacts.add(client1);
         contacts.add(client2);
@@ -96,8 +104,7 @@ public class Main {
         persons.add(client2);
         persons.add(employee1);
 
-        System.out.println(client1.getRole());
-        System.out.println(client2.getRole());
-        System.out.println(employee1.getRole());
+        System.out.println(sameClient1 == sameClient2);
+        System.out.println(sameClient1.equals(sameClient2));
     }
 }
