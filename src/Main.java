@@ -7,6 +7,7 @@ import model.Person;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 import java.util.ArrayList;
@@ -55,6 +56,19 @@ public class Main {
             System.out.println("Не удалось загрузить клиентов из файла.");
         }
         return clients;
+    }
+
+    public static void saveClientsToFile(ArrayList<Client> clients, String fileName) throws FileNotFoundException {
+        PrintWriter pw = new PrintWriter(fileName);
+        for (int i = 0; i<clients.size(); i++) {
+            pw.print(clients.get(i).getName());
+            pw.print(" ");
+            pw.print(clients.get(i).getPhone());
+            pw.print(" ");
+            pw.print(clients.get(i).getAddress());
+            pw.print("\n");
+        }
+        pw.close();
     }
 
     public static void main(String[] args) throws FileNotFoundException, InvalidPhoneException, EmptyFileException {
@@ -109,6 +123,10 @@ public class Main {
         persons.add(client2);
         persons.add(employee1);
 
-        printAll(persons);
+        ArrayList<Client> clients = new ArrayList<>();
+        clients.add(client1);
+        clients.add(client2);
+
+        saveClientsToFile(clients, "saved_clients.txt");
     }
 }
