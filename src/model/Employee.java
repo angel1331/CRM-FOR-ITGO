@@ -3,6 +3,33 @@ import interfaces.Contactable;
 
 public class Employee extends Person implements Contactable {
     private String position;
+    public Department department;
+
+    public static class Department {
+        public String name;
+        public String code;
+
+        @Override
+        public String toString() {
+            return name + " (" + code + ") ";
+        }
+
+        public String getCode() {
+            return code;
+        }
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     public String getRole() {
         return "Сотрудник";
@@ -10,9 +37,8 @@ public class Employee extends Person implements Contactable {
 
     @Override
     public String toString() {
-        return "Сотрудник: " + getName() + " | " + "Телефон: " + getPhone() + " | " + "Должность: " + getPosition();
+        return "Сотрудник: " + getName() + " | " + "Телефон: " + getPhone() + " | " + "Должность: " + getPosition() + " | " + "Департамент: " + getDepartment();
     }
-
 
     @Override
     public String getContactInfo() {

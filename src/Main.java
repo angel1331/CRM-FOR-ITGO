@@ -85,6 +85,11 @@ public class Main {
         employee1.setPhone("+77005555555");
         employee1.setPosition("Онлайн мастер");
 
+        Employee.Department dept = new Employee.Department();
+        dept.name = "Technical Support";
+        employee1.setDepartment(dept);
+        employee1.department.setCode("TECH-1");
+
         Client sameClient1 = new Client();
         sameClient1.setName("Anna");
         sameClient1.setPhone("+77059237232");
@@ -104,7 +109,6 @@ public class Main {
         persons.add(client2);
         persons.add(employee1);
 
-        System.out.println(sameClient1 == sameClient2);
-        System.out.println(sameClient1.equals(sameClient2));
+        printAll(persons);
     }
 }
