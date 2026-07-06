@@ -5,9 +5,7 @@ import model.Client;
 import model.Employee;
 import model.Person;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Scanner;
 
 import java.util.ArrayList;
@@ -71,7 +69,23 @@ public class Main {
         pw.close();
     }
 
-    public static void main(String[] args) throws FileNotFoundException, InvalidPhoneException, EmptyFileException {
+    public static void saveClientsBinary(ArrayList<Client> clients, String fileName) throws IOException {
+        FileOutputStream fos = new FileOutputStream(fileName);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+        oos.writeObject(clients);
+    }
+
+    public static ArrayList<Client> loadClientsBinary(String fileName) throws IOException, ClassNotFoundException {
+        FileInputStream fis = new FileInputStream(fileName);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+
+        ArrayList<Client> clients = (ArrayList<Client>) ois.readObject();
+
+        return clients;
+    }
+
+    public static void main(String[] args) throws IOException, InvalidPhoneException, EmptyFileException, ClassNotFoundException {
         Contactable tempClient = new Contactable() {
             @Override
             public String getContactInfo() {
@@ -127,6 +141,11 @@ public class Main {
         clients.add(client1);
         clients.add(client2);
 
-        saveClientsToFile(clients, "saved_clients.txt");
+        saveClientsBinary(clients, "clients.bin");
+        ArrayList<Client> loadedClientsBinary = loadClientsBinary("clients.bin");
+        for (int i = 0; i < loadedClientsBinary.size(); i++) {
+            persons.add(loadedClientsBinary.get(i));
+        }
+        printAll(persons);
     }
 }
