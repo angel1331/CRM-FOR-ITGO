@@ -3,7 +3,7 @@ import interfaces.Contactable;
 
 public class Client extends Person implements Contactable {
     private String address;
-    private transient String tempNote;
+    public transient String tempNote;
 
     public String getRole() {
         return "Клиент";

@@ -4,7 +4,6 @@ import interfaces.Contactable;
 import model.Client;
 import model.Employee;
 import model.Person;
-
 import java.io.*;
 import java.util.Scanner;
 
@@ -69,20 +68,22 @@ public class Main {
         pw.close();
     }
 
-    public static void saveClientsBinary(ArrayList<Client> clients, String fileName) throws IOException {
-        FileOutputStream fos = new FileOutputStream(fileName);
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-        oos.writeObject(clients);
+    public static void saveClientsBinary(ArrayList<Client> clients, String fileName) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))){
+            oos.writeObject(clients);
+        } catch (IOException e) {
+            System.out.println(e);
+        }
     }
 
     public static ArrayList<Client> loadClientsBinary(String fileName) throws IOException, ClassNotFoundException {
-        FileInputStream fis = new FileInputStream(fileName);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-
-        ArrayList<Client> clients = (ArrayList<Client>) ois.readObject();
-
-        return clients;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fileName))) {
+            ArrayList<Client> clients = (ArrayList<Client>) ois.readObject();
+            return clients;
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public static void main(String[] args) throws IOException, InvalidPhoneException, EmptyFileException, ClassNotFoundException {
@@ -102,6 +103,7 @@ public class Main {
         client1.setName("Алия Иванова");
         client1.setPhone("+77001234567");
         client1.setAddress("Астана, ул. Абая 10");
+        client1.tempNote = "dalbich";
 
         Client client2 = new Client();
         client2.setName("Данияр Сейтов");
