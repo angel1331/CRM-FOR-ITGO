@@ -6,6 +6,8 @@ public abstract class Person {
     private String name;
     private String phone;
 
+    private static final long serialVersionUID = 1L;
+
     public abstract String getRole();
 
     @Override
