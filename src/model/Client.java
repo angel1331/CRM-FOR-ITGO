@@ -1,9 +1,11 @@
 package model;
+import enums.ClientStatus;
 import interfaces.Contactable;
 
 public class Client extends Person implements Contactable {
     private String address;
     public transient String tempNote;
+    public ClientStatus status;
 
     public String getRole() {
         return "Клиент";
@@ -43,5 +45,13 @@ public class Client extends Person implements Contactable {
 
     public String getAddress() {
         return address;
+    }
+
+    public void setStatus(ClientStatus status) {
+        this.status = status;
+    }
+
+    public ClientStatus getStatus() {
+        return status;
     }
 }

@@ -1,3 +1,4 @@
+import enums.ClientStatus;
 import exceptions.EmptyFileException;
 import exceptions.InvalidPhoneException;
 import interfaces.Contactable;
@@ -145,9 +146,13 @@ public class Main {
 
         saveClientsBinary(clients, "clients.bin");
         ArrayList<Client> loadedClientsBinary = loadClientsBinary("clients.bin");
-        for (int i = 0; i < loadedClientsBinary.size(); i++) {
-            persons.add(loadedClientsBinary.get(i));
+        for (Client client : loadedClientsBinary) {
+            persons.add(client);
         }
-        printAll(persons);
+
+        client1.setStatus(ClientStatus.NEW);
+        client1.getStatus().getDescription();
+        ClientStatus status = ClientStatus.valueOf("ACTIVE");
+        System.out.println(status);
     }
 }
